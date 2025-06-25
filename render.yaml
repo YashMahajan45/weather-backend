@@ -1,9 +1,7 @@
 services:
   - type: web
     name: weather-backend
-    runtime: java
-    buildCommand: "./mvnw clean install"
-    startCommand: "java -jar target/*.jar"
+    env: docker
     plan: free
     branch: main
     region: oregon
