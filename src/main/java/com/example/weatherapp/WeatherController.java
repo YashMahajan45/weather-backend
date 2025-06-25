@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-@CrossOrigin(origins = "https://gorgeous-valkyrie-f267cc.netlify.app") // Allow frontend
+@CrossOrigin(origins = "*") // Allow frontend
 @RestController
 @RequestMapping("/api")
 public class WeatherController {
