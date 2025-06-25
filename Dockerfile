@@ -1,14 +1,12 @@
-# Start with Java image
-FROM eclipse-temurin:17-jdk
-
-# Set working directory
+# Step 1: Use Maven to build the application
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
-
-# Copy the project files
 COPY . .
+RUN mvn clean package -DskipTests
 
-# Build the project
-RUN ./mvnw clean install
-
-# Run the JAR
-CMD ["java", "-jar", "target/weather-backend-0.0.1-SNAPSHOT.jar"]
+# Step 2: Use a lighter JDK image to run the jar
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
